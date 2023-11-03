@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_app/cart_provider.dart';
 
 class Productdetail extends StatefulWidget {
   final Map<String, Object> product;
@@ -10,6 +12,17 @@ class Productdetail extends StatefulWidget {
 
 class _ProductdetailState extends State<Productdetail> {
   int selectedsize = 0;
+  void onTap() {
+    Provider.of<Cartprovider>(context, listen: false).addproduct({
+      'id': widget.product['id'],
+      'title': widget.product['title'],
+      'price': widget.product['price'],
+      'company': widget.product['company'],
+      'imageurl': widget.product['imageurl'],
+      'Size': selectedsize,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +95,7 @@ class _ProductdetailState extends State<Productdetail> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       minimumSize: const Size(double.infinity, 50),
                     ),
-                    onPressed: () {},
+                    onPressed: onTap,
                     child: const Text(
                       'Add To Card',
                       style: TextStyle(
